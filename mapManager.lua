@@ -9,6 +9,15 @@ function mapManager:loadMap(mapData)
 
     snake.x = mapData.startPos.x
     snake.y = mapData.startPos.y-1
+    tileManager.gridHeight = #mapData.map
+    
+    local highest = 0
+    for indx, row in pairs(mapData.map) do
+        if #row > highest then
+            highest = #row
+        end
+    end
+    tileManager.gridWidth = highest
 end
 
 function mapManager:draw()

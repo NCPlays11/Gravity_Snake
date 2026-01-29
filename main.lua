@@ -10,11 +10,12 @@ function love.load()
     mapManager:loadMap({
         startPos = {x=0,y=4},
         map={
-            {0,0,0,0,0},
-            {0,0,0,0,0},
-            {0,0,0,0,0},
-            {0,0,0,0,2},
-            {1,1,1,1,1},
+            {0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,2},
+            {1,1,1,1,1,1,1,1,1,1},
         }
     })
 end
@@ -33,4 +34,8 @@ end
 
 function love.keypressed(key)
    snake:keypressed(key)
+
+   if key == "f11" then
+        love.window.setFullscreen(not love.window.getFullscreen())
+    end
 end
