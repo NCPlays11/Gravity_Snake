@@ -9,6 +9,7 @@ function mapManager:loadMap(mapData)
 
     snake.x = mapData.startPos.x
     snake.y = mapData.startPos.y-1
+    snake.tail = mapData.startTail
     tileManager.gridHeight = #mapData.map
     
     local highest = 0

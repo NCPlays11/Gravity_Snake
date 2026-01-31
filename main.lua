@@ -11,7 +11,7 @@ function love.load()
 
     mapManager:loadMap({
         startPos = {x=2,y=5},
-        startTail = {{x=1,y=4},{x=0,y=4}},
+        startTail = {{x=0,y=4},{x=1,y=4}},
         map={
             {0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0},
