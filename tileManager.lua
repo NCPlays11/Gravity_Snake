@@ -75,12 +75,10 @@ function tileManager:draw()
     local sY = love.graphics.getHeight()
 
     if sX/xRatio > sY then
-        love.graphics.rectangle("fill",love.graphics.getWidth()/2-(sY*xRatio*0.5),0,sY*xRatio,sY)
         self.gridWidthPx = sY*xRatio
         self.gridHeightPx = sY
         love.graphics.translate(love.graphics.getWidth()/2-(sY*xRatio*0.5),0)
     else
-        love.graphics.rectangle("fill",0,love.graphics.getHeight()/2-(sX/xRatio*0.5),sX,sX/xRatio)
         self.gridWidthPx = sX
         self.gridHeightPx = sX/xRatio
         love.graphics.translate(0,love.graphics.getHeight()/2-(sX/xRatio*0.5))

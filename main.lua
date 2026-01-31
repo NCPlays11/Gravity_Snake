@@ -33,6 +33,7 @@ function love.draw()
     snake:draw()
     mapManager:draw()
     love.graphics.pop()
+    love.graphics.setBackgroundColor(130/255, 200/255, 229/255)
 end
 
 function love.keypressed(key)
