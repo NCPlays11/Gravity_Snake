@@ -3,18 +3,21 @@ function love.load()
     tileManager = require "tileManager"
     mapManager = require "mapManager"
 
+    love.graphics.setDefaultFilter("nearest","nearest")
+
     snake:load()
     tileManager:load()
     mapManager:load()
 
     mapManager:loadMap({
-        startPos = {x=0,y=4},
+        startPos = {x=2,y=5},
+        startTail = {{x=1,y=4},{x=0,y=4}},
         map={
             {0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,2},
+            {0,0,0,0,1,5,6,7,8,2},
             {1,1,1,1,1,1,1,1,1,1},
         }
     })
