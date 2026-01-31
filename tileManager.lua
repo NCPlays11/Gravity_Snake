@@ -5,23 +5,65 @@ function tileManager:load()
     self.gridHeight = 5
     self.gridWidthPx = 0
     self.gridHeightPx = 0
+
+    self.snakeSheet = love.graphics.newImage("assets/textures/snakeSheet.png")
+    self.tileSheet = love.graphics.newImage("assets/textures/tilesSheet.png")
 end
 
 function tileManager:update(dt)
 end
 
 function tileManager:drawTile(x,y, id)
+    love.graphics.setColor(1,1,1,1)
     local tileSize = self.gridWidthPx/self.gridWidth
 
+    
+    -- Tile ids:
+    -- 8 - Flag
+    -- 7 - Spike
+    -- 6 - Rock
+    -- 5 - Rotten Apple
+    -- 4 - Tail
+    -- 3 - Head
+    -- 2 - Apple
+    -- 1 - Ground
+
+    local tilePosition = {x=0,y=0}
+    local tileSheet = self.snakeSheet
+
     if id == 3 then
-        love.graphics.setColor(0,1,0)
+        tilePosition.x=snake.prevDirection-1
     elseif id == 2 then
-        love.graphics.setColor(1,0,0)
+        tileSheet = self.tileSheet
     elseif id == 1 then
-        love.graphics.setColor(1,1,1)
+        tileSheet = self.tileSheet
+        tilePosition.x=2
+
+        if mapManager:getTileFromPos(x,y-1) == 1 then
+            tilePosition.x=3
+        end
+    elseif id == 5 then
+        tileSheet = self.tileSheet
+        tilePosition.x=1
+    elseif id == 6 then
+        tileSheet = self.tileSheet
+        tilePosition.x=0
+        tilePosition.y = 1
+    elseif id == 7 then
+        tileSheet = self.tileSheet
+        tilePosition.x=1
+        tilePosition.y = 1
+    elseif id == 8 then
+        tileSheet = self.tileSheet
+        tilePosition.x=2
+        tilePosition.y = 1
+    elseif id == 4 then
+        tilePosition.y=1
     end
 
-    love.graphics.rectangle("fill", x*tileSize, y*tileSize, tileSize, tileSize)
+    local quad = love.graphics.newQuad((tilePosition.x)*16,(tilePosition.y)*16,16,16,tileSheet:getDimensions())
+    local scale = tileSize/16
+    love.graphics.draw(tileSheet, quad, x*tileSize, y*tileSize,0,scale,scale)
 end
 
 function tileManager:draw()

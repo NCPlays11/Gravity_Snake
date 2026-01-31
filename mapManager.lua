@@ -20,6 +20,13 @@ function mapManager:loadMap(mapData)
     tileManager.gridWidth = highest
 end
 
+function mapManager:getTileFromPos(x,y)
+    local row = self.currentMap.map[y+1]
+    if not row then return else
+        return row[x+1]
+    end
+end
+
 function mapManager:draw()
     for indy, row in ipairs(self.currentMap.map) do
         for indx, tile in ipairs(row) do
