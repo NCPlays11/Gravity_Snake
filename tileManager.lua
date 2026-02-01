@@ -13,11 +13,11 @@ end
 function tileManager:update(dt)
 end
 
-function tileManager:drawTile(x,y, id)
-    love.graphics.setColor(1,1,1,1)
-    local tileSize = self.gridWidthPx/self.gridWidth
+function tileManager:drawTile(x, y, id)
+    love.graphics.setColor(1, 1, 1, 1)
+    local tileSize = self.gridWidthPx / self.gridWidth
 
-    
+
     -- Tile ids:
     -- 8 - Flag
     -- 7 - Spike
@@ -28,60 +28,60 @@ function tileManager:drawTile(x,y, id)
     -- 2 - Apple
     -- 1 - Ground
 
-    local tilePosition = {x=0,y=0}
+    local tilePosition = { x = 0, y = 0 }
     local tileSheet = self.snakeSheet
 
     if id == 3 then
-        tilePosition.x=snake.prevDirection-1
+        tilePosition.x = snake.prevDirection - 1
     elseif id == 2 then
         tileSheet = self.tileSheet
     elseif id == 1 then
         tileSheet = self.tileSheet
-        tilePosition.x=2
+        tilePosition.x = 2
 
-        if mapManager:getTileFromPos(x,y-1) == 1 then
-            tilePosition.x=3
+        if mapManager:getTileFromPos(x, y - 1) == 1 then
+            tilePosition.x = 3
         end
     elseif id == 5 then
         tileSheet = self.tileSheet
-        tilePosition.x=1
+        tilePosition.x = 1
     elseif id == 6 then
         tileSheet = self.tileSheet
-        tilePosition.x=0
+        tilePosition.x = 0
         tilePosition.y = 1
     elseif id == 7 then
         tileSheet = self.tileSheet
-        tilePosition.x=1
+        tilePosition.x = 1
         tilePosition.y = 1
     elseif id == 8 then
         tileSheet = self.tileSheet
-        tilePosition.x=2
+        tilePosition.x = 2
         tilePosition.y = 1
     elseif id == 4 then
-        tilePosition.y=1
+        tilePosition.y = 1
     end
 
-    local quad = love.graphics.newQuad((tilePosition.x)*16,(tilePosition.y)*16,16,16,tileSheet:getDimensions())
-    local scale = tileSize/16
-    love.graphics.draw(tileSheet, quad, x*tileSize, y*tileSize,0,scale,scale)
+    local quad = love.graphics.newQuad((tilePosition.x) * 16, (tilePosition.y) * 16, 16, 16, tileSheet:getDimensions())
+    local scale = tileSize / 16
+    love.graphics.draw(tileSheet, quad, x * tileSize, y * tileSize, 0, scale, scale)
 end
 
 function tileManager:draw()
-    love.graphics.setColor(0.5,0.5,0.5,1)
+    love.graphics.setColor(0.5, 0.5, 0.5, 1)
 
-    local xRatio = self.gridWidth/self.gridHeight
+    local xRatio = self.gridWidth / self.gridHeight
 
     local sX = love.graphics.getWidth()
     local sY = love.graphics.getHeight()
 
-    if sX/xRatio > sY then
-        self.gridWidthPx = sY*xRatio
+    if sX / xRatio > sY then
+        self.gridWidthPx = sY * xRatio
         self.gridHeightPx = sY
-        love.graphics.translate(love.graphics.getWidth()/2-(sY*xRatio*0.5),0)
+        love.graphics.translate(love.graphics.getWidth() / 2 - (sY * xRatio * 0.5), 0)
     else
         self.gridWidthPx = sX
-        self.gridHeightPx = sX/xRatio
-        love.graphics.translate(0,love.graphics.getHeight()/2-(sX/xRatio*0.5))
+        self.gridHeightPx = sX / xRatio
+        love.graphics.translate(0, love.graphics.getHeight() / 2 - (sX / xRatio * 0.5))
     end
 end
 
