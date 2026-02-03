@@ -3,7 +3,7 @@ function love.load()
     tileManager = require "tileManager"
     mapManager = require "mapManager"
 
-    love.graphics.setDefaultFilter("nearest","nearest")
+    love.graphics.setDefaultFilter("nearest", "nearest")
 
     snake:load()
     tileManager:load()
@@ -50,9 +50,9 @@ function love.draw()
 end
 
 function love.keypressed(key)
-   snake:keypressed(key)
+    snake:keypressed(key)
 
-   if key == "f11" then
+    if key == "f11" then
         love.window.setFullscreen(not love.window.getFullscreen())
     end
 end

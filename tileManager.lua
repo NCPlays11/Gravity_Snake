@@ -24,11 +24,11 @@ end
 function tileManager:update(dt)
 end
 
-function tileManager:drawTile(x,y, id)
-    love.graphics.setColor(1,1,1,1)
-    local tileSize = self.gridWidthPx/self.gridWidth
+function tileManager:drawTile(x, y, id)
+    love.graphics.setColor(1, 1, 1, 1)
+    local tileSize = self.gridWidthPx / self.gridWidth
 
-    
+
     -- Tile ids:
     -- 8 - Flag
     -- 7 - Spike
@@ -56,21 +56,21 @@ function tileManager:drawTile(x,y, id)
 end
 
 function tileManager:draw()
-    love.graphics.setColor(0.5,0.5,0.5,1)
+    love.graphics.setColor(0.5, 0.5, 0.5, 1)
 
-    local xRatio = self.gridWidth/self.gridHeight
+    local xRatio = self.gridWidth / self.gridHeight
 
     local sX = love.graphics.getWidth()
     local sY = love.graphics.getHeight()
 
-    if sX/xRatio > sY then
-        self.gridWidthPx = sY*xRatio
+    if sX / xRatio > sY then
+        self.gridWidthPx = sY * xRatio
         self.gridHeightPx = sY
-        love.graphics.translate(love.graphics.getWidth()/2-(sY*xRatio*0.5),0)
+        love.graphics.translate(love.graphics.getWidth() / 2 - (sY * xRatio * 0.5), 0)
     else
         self.gridWidthPx = sX
-        self.gridHeightPx = sX/xRatio
-        love.graphics.translate(0,love.graphics.getHeight()/2-(sX/xRatio*0.5))
+        self.gridHeightPx = sX / xRatio
+        love.graphics.translate(0, love.graphics.getHeight() / 2 - (sX / xRatio * 0.5))
     end
 end
 

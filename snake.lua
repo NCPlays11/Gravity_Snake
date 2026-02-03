@@ -15,8 +15,8 @@ function snake:load()
 end
 
 function snake:update(dt)
-   if self.moving and not self.falling then
-      local onGround = false
+    if self.moving and not self.falling then
+        local onGround = false
 
       local _underTile = tileManager.tileData[mapManager:getTileFromPos(self.x,self.y+1)]
       if _underTile and _underTile.canCollide then
@@ -58,10 +58,10 @@ function snake:update(dt)
 end
 
 function snake:draw()
-    tileManager:drawTile(self.x,self.y+(self._fallingProg or 0),3)
+    tileManager:drawTile(self.x, self.y + (self._fallingProg or 0), 3)
 
     for indx, tail in pairs(self.tail) do
-      tileManager:drawTile(tail.x,tail.y+(self._fallingProg or 0),4)
+        tileManager:drawTile(tail.x, tail.y + (self._fallingProg or 0), 4)
     end
 end
 
