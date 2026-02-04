@@ -11,9 +11,9 @@ function love.load()
     mapManager:load()
 
     mapManager:loadMap({
-        startPos = { x = 2, y = 3 },
-        startTail = { { x = 0, y = 3 }, { x = 1, y = 3 } },
-        map = maps[mapManager.level]
+        startPos = maps[mapManager.level]["startPos"],
+        startTail = maps[mapManager.level]["startTail"],
+        map = maps[mapManager.level]["map"]
     })
 end
 
