@@ -26,35 +26,37 @@ function mapManager:update(dt)
         for indx, tile in pairs(row) do
             if tile == 6 then
                 local canFall = false
-                if mapManager:getTileFromPos(indx-1,indy)==0 then
-                   canFall = true
+                if mapManager:getTileFromPos(indx - 1, indy) == 0 then
+                    canFall = true
                 end
 
                 if canFall then
-                    if indx-1 == snake.x and indy==snake.y then
+                    if indx - 1 == snake.x and indy == snake.y then
                         canFall = false
                     end
 
                     for i, tail in pairs(snake.tail) do
-                        if indx-1 == tail.x and indy==tail.y then
+                        if indx - 1 == tail.x and indy == tail.y then
                             canFall = false
                         end
                     end
                 end
 
                 if canFall then
-                    self.currentMap.map[indy][indx]=0
-                    self.currentMap.map[indy+1][indx]=6
+                    self.currentMap.map[indy][indx] = 0
+                    self.currentMap.map[indy + 1][indx] = 6
                 end
             end
         end
     end
 end
 
-function mapManager:getTileFromPos(x,y)
-    local row = self.currentMap.map[y+1]
-    if not row then return else
-        return row[x+1]
+function mapManager:getTileFromPos(x, y)
+    local row = self.currentMap.map[y + 1]
+    if not row then
+        return
+    else
+        return row[x + 1]
     end
 end
 

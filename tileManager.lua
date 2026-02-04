@@ -10,14 +10,14 @@ function tileManager:load()
     self.tileSheet = love.graphics.newImage("assets/textures/tilesSheet.png")
 
     self.tileData = {
-        [1]={tilePos={x=2,y=0},sheet = self.tileSheet, canCollide = true,id=1,},
-        [2]={tilePos={x=0,y=0},sheet = self.tileSheet, canCollide = true,id=2,},
-        [3]={tilePos={x=0,y=0},sheet = self.snakeSheet, canCollide = true,id=3,},
-        [4]={tilePos={x=0,y=1},sheet = self.snakeSheet, canCollide = true,id=4,},
-        [5]={tilePos={x=1,y=0},sheet = self.tileSheet, canCollide = true,id=5,},
-        [6]={tilePos={x=0,y=1},sheet = self.tileSheet, canCollide = true,id=6},
-        [7]={tilePos={x=1,y=1},sheet = self.tileSheet, canCollide = false,id=7,},
-        [8]={tilePos={x=2,y=1},sheet = self.tileSheet, canCollide = false,id=8,},
+        [1] = { tilePos = { x = 2, y = 0 }, sheet = self.tileSheet, canCollide = true, id = 1, },
+        [2] = { tilePos = { x = 0, y = 0 }, sheet = self.tileSheet, canCollide = true, id = 2, },
+        [3] = { tilePos = { x = 0, y = 0 }, sheet = self.snakeSheet, canCollide = true, id = 3, },
+        [4] = { tilePos = { x = 0, y = 1 }, sheet = self.snakeSheet, canCollide = true, id = 4, },
+        [5] = { tilePos = { x = 1, y = 0 }, sheet = self.tileSheet, canCollide = true, id = 5, },
+        [6] = { tilePos = { x = 0, y = 1 }, sheet = self.tileSheet, canCollide = true, id = 6 },
+        [7] = { tilePos = { x = 1, y = 1 }, sheet = self.tileSheet, canCollide = false, id = 7, },
+        [8] = { tilePos = { x = 2, y = 1 }, sheet = self.tileSheet, canCollide = false, id = 8, },
     }
 end
 
@@ -39,20 +39,20 @@ function tileManager:drawTile(x, y, id)
     -- 2 - Apple
     -- 1 - Ground
 
-    local tilePosition = {x=self.tileData[id].tilePos.x,y=self.tileData[id].tilePos.y}
+    local tilePosition = { x = self.tileData[id].tilePos.x, y = self.tileData[id].tilePos.y }
     local tileSheet = self.tileData[id].sheet
     if id == 1 then
-        if mapManager:getTileFromPos(x,y-1) == 1 then
-            tilePosition.x=3
+        if mapManager:getTileFromPos(x, y - 1) == 1 then
+            tilePosition.x = 3
         end
     elseif id == 4 then
-        tilePosition.x = (math.floor(x+y+snake.x+snake.y))%2
+        tilePosition.x = (math.floor(x + y + snake.x + snake.y)) % 2
     elseif id == 3 then
-        tilePosition.x = snake.prevDirection-1
+        tilePosition.x = snake.prevDirection - 1
     end
-    local quad = love.graphics.newQuad((tilePosition.x)*16,(tilePosition.y)*16,16,16,tileSheet:getDimensions())
-    local scale = tileSize/16
-    love.graphics.draw(tileSheet, quad, x*tileSize, y*tileSize,0,scale,scale)
+    local quad = love.graphics.newQuad((tilePosition.x) * 16, (tilePosition.y) * 16, 16, 16, tileSheet:getDimensions())
+    local scale = tileSize / 16
+    love.graphics.draw(tileSheet, quad, x * tileSize, y * tileSize, 0, scale, scale)
 end
 
 function tileManager:draw()
