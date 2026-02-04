@@ -2,6 +2,7 @@ local mapManager = {}
 
 function mapManager:load()
     self.currentMap = {}
+    self.level = 1
 end
 
 function mapManager:loadMap(mapData)
