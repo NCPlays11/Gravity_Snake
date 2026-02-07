@@ -17,7 +17,7 @@ function tileManager:load()
         [5] = { tilePos = { x = 1, y = 0 }, sheet = self.tileSheet, canCollide = true, id = 5, },
         [6] = { tilePos = { x = 0, y = 1 }, sheet = self.tileSheet, canCollide = true, id = 6 },
         [7] = { tilePos = { x = 1, y = 1 }, sheet = self.tileSheet, canCollide = false, id = 7, },
-        [8] = { tilePos = { x = 2, y = 1 }, sheet = self.tileSheet, canCollide = false, id = 8, },
+        [8] = { tilePos = { x = 2, y = 1 }, sheet = self.tileSheet, canCollide = true, id = 8, },
     }
 end
 

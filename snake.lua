@@ -113,6 +113,16 @@ function snake:keypressed(key)
                     else
                         found = true
                     end
+                elseif tile.id == 8 then
+                    if mapManager.level < #maps then
+                        mapManager.level = mapManager.level + 1
+                        mapManager:loadMap({
+                            startPos = maps[mapManager.level]["startPos"],
+                            startTail = maps[mapManager.level]["startTail"],
+                            map = maps[mapManager.level]["map"]
+                        })
+                        found = true
+                    end
                 else
                     found = true
                 end
