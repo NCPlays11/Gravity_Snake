@@ -33,10 +33,14 @@ function love.draw()
     love.graphics.setColor(0, 0, 0, 1)
     local f = love.graphics.newFont(math.min(love.graphics.getDimensions()) / 25)
     local t = tostring(love.timer.getFPS())
+    local w = love.graphics.getWidth()
     love.graphics.rectangle("fill", 0, 0, f:getWidth(t), f:getHeight())
     love.graphics.setColor(0, 1, 0, 1)
     love.graphics.setFont(f)
     love.graphics.print(t, 0, 0)
+    love.graphics.setColor(0, 0, 0)
+    love.graphics.print("Press \"r\" to restart.", w - 550, 0)
+    love.graphics.print("Press \"esc\" to quit.", w - 545, 60)
 end
 
 function love.keypressed(key)
@@ -47,5 +51,13 @@ function love.keypressed(key)
     end
     if key == "escape" then
         love.event.quit()
+    end
+    if key == "r" then
+        snake.prevDirection = 1
+        mapManager:loadMap({
+            startPos = maps[mapManager.level]["startPos"],
+            startTail = maps[mapManager.level]["startTail"],
+            map = maps[mapManager.level]["map"]
+        })
     end
 end

@@ -15,8 +15,6 @@ function mapManager:load()
 end
 
 function mapManager:loadMap(mapData)
-    -- make copies so modifying the active map or tail doesn't mutate the
-    -- original `maps` entries (which prevented resets)
     self.currentMap = {
         startPos = mapCopy(mapData.startPos),
         startTail = mapCopy(mapData.startTail),
