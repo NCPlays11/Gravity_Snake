@@ -15,6 +15,16 @@ function snake:load()
 end
 
 function snake:update(dt)
+    local currentTile = mapManager:getTileFromPos(self.x, self.y)
+    if currentTile == 7 then
+        self.prevDirection = 1
+        mapManager:loadMap({
+            startPos = maps[mapManager.level]["startPos"],
+            startTail = maps[mapManager.level]["startTail"],
+            map = maps[mapManager.level]["map"]
+        })
+        return
+    end
     if self.moving and not self.falling then
         local onGround = false
 
@@ -42,17 +52,50 @@ function snake:update(dt)
     end
 
     if self.falling then
-        self._fallingProg = self._fallingProg + dt * self._fallingSpeed
-        self._fallingSpeed = self._fallingSpeed + dt * 100
-
-        if self._fallingProg >= 1 then
-            self.y = self.y + 1
-            for indx, tail in pairs(self.tail) do
-                tail.y = tail.y + 1
-            end
-
+        if self.y >= #maps[mapManager.level]["map"] then
             self.falling = false
-            self._fallingProg = nil
+            self.prevDirection = 1
+            mapManager:loadMap({
+                startPos = maps[mapManager.level]["startPos"],
+                startTail = maps[mapManager.level]["startTail"],
+                map = maps[mapManager.level]["map"]
+            })
+        else
+            self._fallingProg = self._fallingProg + dt * self._fallingSpeed
+            self._fallingSpeed = self._fallingSpeed + dt * 100
+
+            if self._fallingProg >= 1 then
+                self.y = self.y + 1
+                for indx, tail in pairs(self.tail) do
+                    tail.y = tail.y + 1
+                end
+
+                self.falling = false
+                self._fallingProg = nil
+
+                local landedTile = mapManager:getTileFromPos(self.x, self.y)
+                if landedTile == 7 then
+                    self.prevDirection = 1
+                    mapManager:loadMap({
+                        startPos = maps[mapManager.level]["startPos"],
+                        startTail = maps[mapManager.level]["startTail"],
+                        map = maps[mapManager.level]["map"]
+                    })
+                    return
+                end
+
+                for indx, seg in pairs(self.tail) do
+                    if mapManager:getTileFromPos(seg.x, seg.y) == 7 then
+                        self.prevDirection = 1
+                        mapManager:loadMap({
+                            startPos = maps[mapManager.level]["startPos"],
+                            startTail = maps[mapManager.level]["startTail"],
+                            map = maps[mapManager.level]["map"]
+                        })
+                        return
+                    end
+                end
+            end
         end
     end
 end
@@ -96,9 +139,22 @@ function snake:keypressed(key)
                     break
                 end
             end
-            local tile = tileManager.tileData[mapManager:getTileFromPos(nextPos.x, nextPos.y)]
+            local tileId = mapManager:getTileFromPos(nextPos.x, nextPos.y)
+            local tile = tileManager.tileData[tileId]
             local ateApple = false
             local ateRottenApple = false
+
+            if tileId == 7 then
+                self.falling = false
+                self.prevDirection = 1
+                mapManager:loadMap({
+                    startPos = maps[mapManager.level]["startPos"],
+                    startTail = maps[mapManager.level]["startTail"],
+                    map = maps[mapManager.level]["map"]
+                })
+                found = true
+            end
+
             if tile and tile.canCollide then
                 if tile.id == 2 then
                     mapManager.currentMap.map[nextPos.y + 1][nextPos.x + 1] = 0
@@ -133,6 +189,18 @@ function snake:keypressed(key)
                 if not ateApple then table.remove(self.tail, 1) end
                 if ateRottenApple then table.remove(self.tail, 1) end
                 table.insert(self.tail, self.currentPos)
+
+                for indx, seg in pairs(self.tail) do
+                    if mapManager:getTileFromPos(seg.x, seg.y) == 7 then
+                        self.prevDirection = 1
+                        mapManager:loadMap({
+                            startPos = maps[mapManager.level]["startPos"],
+                            startTail = maps[mapManager.level]["startTail"],
+                            map = maps[mapManager.level]["map"]
+                        })
+                        return
+                    end
+                end
             end
         end
 

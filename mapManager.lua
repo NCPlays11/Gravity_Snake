@@ -1,20 +1,35 @@
 local mapManager = {}
 
+local function mapCopy(orig)
+    if type(orig) ~= 'table' then return orig end
+    local copy = {}
+    for k, v in pairs(orig) do
+        copy[k] = mapCopy(v)
+    end
+    return copy
+end
+
 function mapManager:load()
     self.currentMap = {}
     self.level = 1
 end
 
 function mapManager:loadMap(mapData)
-    self.currentMap = mapData
+    -- make copies so modifying the active map or tail doesn't mutate the
+    -- original `maps` entries (which prevented resets)
+    self.currentMap = {
+        startPos = mapCopy(mapData.startPos),
+        startTail = mapCopy(mapData.startTail),
+        map = mapCopy(mapData.map),
+    }
 
-    snake.x = mapData.startPos.x
-    snake.y = mapData.startPos.y
-    snake.tail = mapData.startTail
-    tileManager.gridHeight = #mapData.map
+    snake.x = self.currentMap.startPos.x
+    snake.y = self.currentMap.startPos.y
+    snake.tail = mapCopy(self.currentMap.startTail) or {}
+    tileManager.gridHeight = #self.currentMap.map
 
     local highest = 0
-    for indx, row in pairs(mapData.map) do
+    for indx, row in pairs(self.currentMap.map) do
         if #row > highest then
             highest = #row
         end
