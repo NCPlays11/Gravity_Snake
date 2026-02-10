@@ -39,8 +39,8 @@ function love.draw()
     love.graphics.setFont(f)
     love.graphics.print(t, 0, 0)
     love.graphics.setColor(0, 0, 0)
-    love.graphics.print("Press \"r\" to restart.", w - 550, 0)
-    love.graphics.print("Press \"esc\" to quit.", w - 545, 60)
+    love.graphics.print("Press \"r\" to restart.", w - f:getWidth("Press \"r\" to restart."), 0)
+    love.graphics.print("Press \"esc\" to quit.", w - f:getWidth("Press \"esc\" to quit."), f:getHeight())
 end
 
 function love.keypressed(key)
