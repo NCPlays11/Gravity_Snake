@@ -172,6 +172,7 @@ function snake:keypressed(key)
                 elseif tile.id == 8 then
                     if mapManager.level < #maps then
                         mapManager.level = mapManager.level + 1
+                        self.prevDirection = 1
                         mapManager:loadMap({
                             startPos = maps[mapManager.level]["startPos"],
                             startTail = maps[mapManager.level]["startTail"],
