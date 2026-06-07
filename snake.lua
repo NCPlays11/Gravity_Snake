@@ -114,21 +114,21 @@ function snake:keypressed(key)
         local nextPos = { x = self.x, y = self.y }
         local posDiff = { x = 0, y = 0 }
 
-        if key == "w" then
+        if key == "w" or key == "up" then
             nextPos.y = self.y - 1
             posDiff.y = -1
-        elseif key == "s" then
+        elseif key == "s" or key == "down" then
             nextPos.y = self.y + 1
             posDiff.y = 1
-        elseif key == "a" then
+        elseif key == "a" or key == "left" then
             nextPos.x = self.x - 1
             posDiff.x = -1
-        elseif key == "d" then
+        elseif key == "d" or key == "right" then
             nextPos.x = self.x + 1
             posDiff.x = 1
         end
 
-        if key == "w" or key == "a" or key == "s" or key == "d" then
+        if key == "w" or key == "a" or key == "s" or key == "d" or key == "up" or key == "down" or key == "left" or key == "right" then
             self.currentPos = { x = self.x, y = self.y }
 
             local found = false
@@ -209,13 +209,13 @@ function snake:keypressed(key)
             self.x = nextPos.x
             self.y = nextPos.y
             self.moving = true
-            if key == "w" then
+            if key == "w" or key == "up" then
                 self.prevDirection = 3
-            elseif key == "s" then
+            elseif key == "s" or key == "down" then
                 self.prevDirection = 2
-            elseif key == "a" then
+            elseif key == "a" or key == "left" then
                 self.prevDirection = 4
-            elseif key == "d" then
+            elseif key == "d" or key == "right" then
                 self.prevDirection = 1
             end
         end
